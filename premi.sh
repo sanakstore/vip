@@ -732,6 +732,7 @@ print_install "Menginstall Dropbear"
 apt-get install dropbear -y > /dev/null 2>&1
 wget -q -O /etc/default/dropbear "${REPO}ssh/dropbear.conf"
 wget -q -O /etc/squid/squid.conf "https://raw.githubusercontent.com/FighterTunnel/tunnel/main/fodder/FighterTunnel-examples/squid.conf" >/dev/null 2>&1
+    sed -i "s/xxx/${ipsaya}/g" /etc/squid/squid.conf
 chmod +x /etc/default/dropbear
 /etc/init.d/dropbear restart
 /etc/init.d/dropbear status
