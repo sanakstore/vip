@@ -1036,6 +1036,33 @@ print_install "Enable Service"
     clear
 }
 
+    cat >/usr/bin/runbot <<EOF
+#!/bin/bash
+
+cd /etc
+python3.8 -m kyt
+EOF
+    cat >/etc/systemd/system/kyt.service <<EOF
+[Unit]
+Description=kyt BOT 
+Documentation=kyt
+After=syslog.target network-online.target
+
+[Service]
+User=root
+NoNewPrivileges=true
+ExecStart=/usr/bin/runbot
+
+[Install]
+WantedBy=multi-user.target
+
+    chmod +x /usr/bin/runbot
+    systemctl daemon-reload
+    systemctl stop kyt
+    systemctl enable kyt
+    systemctl start kyt
+    systemctl restart kyt
+}
 # Fingsi Install Script
 function instal(){
 clear
