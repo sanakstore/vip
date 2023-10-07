@@ -1035,17 +1035,17 @@ print_install "Enable Service"
     print_success "Enable Service"
     clear
 }
-
-    cat >/usr/bin/runbot
+{
+        cat >/usr/bin/runbot <<EOF
 #!/bin/bash
 
 cd /etc
 python3.8 -m kyt
 EOF
-    cat >/etc/systemd/system/kyt.service
+    cat >/etc/systemd/system/kyt.service <<EOF
 [Unit]
 Description=kyt BOT 
-Documentation=kyt
+Documentation=FighterTunnel
 After=syslog.target network-online.target
 
 [Service]
@@ -1055,6 +1055,8 @@ ExecStart=/usr/bin/runbot
 
 [Install]
 WantedBy=multi-user.target
+
+EOF
 
     chmod +x /usr/bin/runbot
     systemctl daemon-reload
