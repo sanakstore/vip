@@ -343,8 +343,7 @@ function password_default() {
     KEY="6123951004:AAFMeqbK8n2HEVyCnlUKlvnFgpCpt86wbaA"
     TIME="10"
     URL="https://api.telegram.org/bot$KEY/sendMessage"
-    TEXT="
-     ============================
+    TEXT="============================
        ⚠️AUTOSCRIPT PREMIUM⚠️
     ============================
     <code>Tanggal    :</code> <code>$tanggal</code>
