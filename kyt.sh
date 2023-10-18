@@ -8,6 +8,7 @@ NC='\e[0m'
 #install
 apt update && apt upgrade
 apt install python3 python3-pip git
+pip3.8 install pyarmor
 cd /usr/bin
 wget https://raw.githubusercontent.com/sanakstore/vip/main/bot/bot.zip
 unzip bot.zip
