@@ -20,11 +20,11 @@ function vmip(){
 #LIMITVMESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/kyt/limit/vmess/ip`);
+data=( `ls /etc/vmess/ip`);
 #Decrypted By SANAK STORE
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/kyt/limit/vmess/ip/$user)
+        iplimit=$(cat /etc/vmess/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -34,7 +34,7 @@ data=( `ls /etc/kyt/limit/vmess/ip`);
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvmess.txt | wc -l)
-                  rm -rf /etc/kyt/limit/vmess/ip/$user
+                  rm -rf /etc/vmess/ip/$user
                   send_log
                 else
             echo ""
@@ -46,11 +46,11 @@ function vlip(){
 #LIMITVLESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/kyt/limit/vless/ip`);
+data=( `ls /etc/vless/ip`);
 #Decrypted By SANAK STORE
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/kyt/limit/vless/ip/$user)
+        iplimit=$(cat /etc/vless/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -60,7 +60,7 @@ data=( `ls /etc/kyt/limit/vless/ip`);
                   sed -i "/^### $user $exp/d" /etc/vless/.vless.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvless.txt | wc -l)
-                  rm -rf /etc/kyt/limit/vless/ip/$user
+                  rm -rf /etc/vless/ip/$user
                   send_log
                 else
             echo ""
@@ -72,11 +72,11 @@ function trip(){
 #LIMITIPTROJAN
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/kyt/limit/trojan/ip`);
+data=( `ls /etc/trojan/ip`);
 #Decrypted By SANAK STORE
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/kyt/limit/trojan/ip/$user)
+        iplimit=$(cat /etc/trojan/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -86,7 +86,7 @@ data=( `ls /etc/kyt/limit/trojan/ip`);
                   sed -i "/^### $user $exp/d" /etc/trojan/.trojan.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/iptrojan.txt | wc -l)
-                  rm -rf /etc/kyt/limit/trojan/ip/$user
+                  rm -rf /etc/trojan/ip/$user
                   send_log
                 else
             echo ""
