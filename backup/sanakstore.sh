@@ -191,6 +191,7 @@ clear
 
 apete_apdet() {
     apt update -y
+    apt install lolcat -y
     apt install sudo -y
     apt clean all
     apt autoremove -y
