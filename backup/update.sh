@@ -6,16 +6,16 @@
 # //	email: jambanbkn@gmail.com
 # //  telegram: https://t.me/Baung2012
 # //====================================================
-# // font color configuration | JULAK BANTUR AUTOSCRIPT
+# // font color configuration | JULAK BANSANAK STORE AUTOSCRIPT
 ###########- COLOR CODE -##############
-colornow=$(cat /etc/julak/theme/color.conf)
+colornow=$(cat /etc/sanak/theme/color.conf)
 NC="\e[0m"
 RED="\033[0;31m"
 grenbo="\e[92;1m"
 GRENN="\e[92;1m"
 WC='\033[0m'
-COLOR1="$(cat /etc/julak/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
-COLBG1="$(cat /etc/julak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
+COLOR1="$(cat /etc/sanak/theme/$colornow | grep -w "TEXT" | cut -d: -f2|sed 's/ //g')"
+COLBG1="$(cat /etc/sanak/theme/$colornow | grep -w "BG" | cut -d: -f2|sed 's/ //g')"
 WH='\033[1;37m'
 ###########- END COLOR CODE -##########
 red() { echo -e "\\033[32;1m${*}\\033[0m"; }
