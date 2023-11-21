@@ -63,6 +63,24 @@ EOF
 systemctl daemon-reload
 systemctl restart trip
 systemctl enable trip
+
+cat >/etc/systemd/system/sship.service << EOF
+[Unit]
+Description=My
+ProjectAfter=network.target
+
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/bin/limit-ip sship
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl daemon-reload
+systemctl restart sship
+systemctl enable sship
+
 #SERVICE LIMIT QUOTA
 
 #SERVICE VMESS
@@ -118,3 +136,21 @@ EOF
 systemctl daemon-reload
 systemctl restart qmtr
 systemctl enable qmtr
+
+#SERVICE SSH
+cat >/etc/systemd/system/qmssh.service << EOF
+[Unit]
+Description=My
+ProjectAfter=network.target
+
+[Service]
+WorkingDirectory=/root
+ExecStart=/usr/local/sbin/quota ssh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl daemon-reload
+systemctl restart qmssh
+systemctl enable qmssh
