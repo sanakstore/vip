@@ -109,6 +109,11 @@ make_folder_xray() {
     rm -rf /etc/ssh/.ssh.db
     rm -rf /etc/bot/.bot.db
     mkdir -p /etc/bot
+    mkdir -p /etc/log/vmess
+    mkdir -p /etc/log/vless
+    mkdir -p /etc/log/trojan
+    mkdir -p /etc/log/ss
+    mkdir -p /etc/log/ssh
     mkdir -p /etc/xray
     mkdir -p /etc/vmess
     mkdir -p /etc/vless
@@ -442,9 +447,6 @@ setup_perangkat() {
     curl -s ipinfo.io/city >>/etc/xray/city
     curl -s ipinfo.io/org | cut -d " " -f 2-10 >>/etc/xray/isp
     bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u www-data --version 1.7.5
-    curl https://rclone.org/install.sh | bash
-    printf "q\n" | rclone config
-    wget -O /root/.config/rclone/rclone.conf "https://github.com/sanakstore/vip/raw/main/backup/rclone.conf" >/dev/null 2>&1
     wget -O /etc/xray/config.json "https://github.com/sanakstore/vip/raw/main/backup/config.json" >/dev/null 2>&1
     wget -O /usr/bin/ws.py "https://github.com/sanakstore/vip/raw/main/backup/ws.py" >/dev/null 2>&1
     wget -O /usr/bin/tun.conf "https://github.com/sanakstore/vip/raw/main/backup/tun.conf" >/dev/null 2>&1
@@ -454,23 +456,6 @@ setup_perangkat() {
     chmod +x /etc/systemd/system/ws.service
     chmod +x /usr/bin/ws.py
     chmod 644 /usr/bin/tun.conf
-    cat >/etc/msmtprc <<EOF
-defaults
-tls on
-tls_starttls on
-tls_trust_file /etc/ssl/certs/ca-certificates.crt
-
-account default
-host smtp.gmail.com
-port 587
-auth on
-user backupsmtp93@gmail.com
-from backupsmtp93@gmail.com
-password sdallofkbpuhbtoa
-logfile ~/.msmtp.log
-
-EOF
-
     rm -rf /etc/systemd/system/xray.service.d
     cat >/etc/systemd/system/xray.service <<EOF
 [Unit]
@@ -495,6 +480,40 @@ WantedBy=multi-user.target
 EOF
 
 }
+function ins_backup(){
+clear
+print_install "Memasang Backup Server"
+#BackupOption
+apt install rclone -y
+printf "q\n" | rclone config
+wget -O /root/.config/rclone/rclone.conf "https://github.com/sanakstore/vip/raw/main/backup/rclone.conf" >/dev/null 2>&1
+#Install Wondershaper
+cd /bin
+git clone  https://github.com/magnific0/wondershaper.git
+cd wondershaper
+sudo make install
+cd
+rm -rf wondershaper
+apt install msmtp-mta ca-certificates bsd-mailx -y
+cat<<EOF>>/etc/msmtprc
+defaults
+tls on
+tls_starttls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+
+account default
+host smtp.gmail.com
+port 587
+auth on
+user backupsmtp93@gmail.com
+from backupsmtp93@gmail.com
+password sdallofkbpuhbtoa
+logfile ~/.msmtp.log
+EOF
+chown -R www-data:www-data /etc/msmtprc
+print_success "Backup Server"
+}
+
 
 restart_system() {
     USRSC=$(curl https://raw.githubusercontent.com/kuhing/ip/main/vps | grep $ipsaya | awk '{print $2}')
@@ -621,6 +640,7 @@ main() {
         download_config
         ins_menu
         setup_perangkat
+        ins_backup
         ins_janda
         ins_udp
         restart_system
