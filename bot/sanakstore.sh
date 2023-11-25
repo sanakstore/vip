@@ -23,11 +23,11 @@ green='\e[0;32m'
 ###### IZIN SC
 
 trial() {
-sayang=$(date -d "0 days" +"%Y-%m-%d")
+mkdir -p /etc/trial
+sayang=$(date -d "1 days" +"%Y-%m-%d")
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
-rm -f /etc/trial
 echo "### TRIAL ${sayang} ${ipsaya} " >> /etc/trial
 data_ip=$(cat /etc/trial)
   useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
