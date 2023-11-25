@@ -30,13 +30,21 @@ ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
 echo "### ${user} ${sayang} ${ipsaya} " >> /etc/trial
-grep -E "^### " "/etc/trial" | cut -d ' ' -f 2-3 | nl -s ') '
 sleep 1
-data_ip=$"cat /etc/trial"
-  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
-  if [[ $date_list < $useexp ]]; then
+data_ip=$(cat /etc/trial)
+#  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
+#  if [[ $date_list < $useexp ]]; then
+#    echo -ne
+#  else
+  data=($(cat /etc/trial | grep '^###' | cut -d ' ' -f 3 | sort | uniq))
+now=$(date +"%Y-%m-%d")
+for user in "${data[@]}"; do
+    d1=$(date -d "$data" +%s)
+    d2=$(date -d "$now" +%s)
+    exp2=$(((d1 - d2) / 86400))
+    if [[ "$exp2" -le "0" ]]; then
     echo -ne
-  else
+    else
     echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
     echo -e "\033[42m          SANAK STORE AUTOSCRIPT          \033[0m"
     echo -e "\033[1;93m────────────────────────────────────────────\033[0m"
