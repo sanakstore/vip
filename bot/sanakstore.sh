@@ -208,7 +208,7 @@ echo ""
 if [[ $host == "1" ]]; then
 echo -e "   \e[1;32mPlease Enter Your Subdomain $NC"
 read -p "   Subdomain: " host1
-echo "${ipsaya}" >> /var/lib/sanakstore/ipvps.conf
+echo "P=" >> /var/lib/sanakstore/ipvps.conf
 echo $host1 > /etc/xray/domain
 echo ""
 elif [[ $host == "2" ]]; then
