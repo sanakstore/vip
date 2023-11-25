@@ -152,7 +152,7 @@ make_folder_xray() {
 add_name() {
 clear
 echo -e  "${BLUE}┌──────────────────────────────────────────┐${NC}"
-echo -e  "${YELLOW}|       MASUKKAN NAMA AUTHOR        |${NC}"
+echo -e  "${YELLOW}|       MASUKKAN NAMA AUTHOR           |${NC}"
 echo -e  "${BLUE}└──────────────────────────────────────────┘${NC}"
 echo " "
 read -rp "Masukan Nama Anda Disini : " -e pp
@@ -170,8 +170,8 @@ clear
     echo -e "   .----------------------------------."
 echo -e "   |\e[1;32mPlease Select a Domain Type Below \e[0m|"
 echo -e "   '----------------------------------'"
-echo -e "     \e[1;32m1)\e[0m Enter Your Subdomain"
-echo -e "     \e[1;32m2)\e[0m Use a Random Subdomain"
+echo -e "     ${YELLOW} Enter Your Subdomain${NC}"
+echo -e "     ${YELLOW} Use a Random Subdomain${NC}"
 echo -e "   ------------------------------------"
 read -p "   Please select numbers 1-2 or Any Button(Random) : " host
 echo ""
@@ -196,7 +196,7 @@ clear
 
 apete_apdet() {
     apt update -y
-    apt install lolcat -y
+    apt install lolcat -y && gem install lolcat
     apt install sudo -y
     apt clean all
     apt autoremove -y
@@ -346,7 +346,7 @@ clear
     wget -q https://raw.githubusercontent.com/sanakstore/vip/main/backup/menu.zip
     unzip menu.zip
     chmod +x menu/*
-    mv menu/* /usr/local/sbin
+    mv menu/* /usr/local/sbin/sanak
     rm -rf menu
     rm -rf menu.zip
 }
@@ -381,7 +381,7 @@ END
     cat >/etc/cron.d/xp_all <<-END
 		SHELL=/bin/sh
 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-		0 0 * * * root /usr/local/sbin/xp
+		2 3 * * * root /usr/local/sbin/xp
 	END
     cat >/etc/cron.d/clearlog <<-END
 		SHELL=/bin/sh
