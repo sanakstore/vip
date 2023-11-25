@@ -373,7 +373,7 @@ clear
     wget -q https://raw.githubusercontent.com/sanakstore/vip/main/backup/menu.zip
     unzip menu.zip
     chmod +x menu/*
-    mv menu/* /usr/local/sbin/sanak
+    mv menu/* /usr/local/sbin
     rm -rf menu
     rm -rf menu.zip
 }
@@ -383,7 +383,7 @@ clear
     wget -q https://raw.githubusercontent.com/sanakstore/vip/main/bot/menu.zip
     unzip menu.zip
     chmod +x menu/*
-    mv menu/* /usr/local/sbin/sanak
+    mv menu/* /usr/local/sbin
     rm -rf menu
     rm -rf menu.zip
 }
