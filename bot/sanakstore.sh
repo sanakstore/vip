@@ -28,10 +28,11 @@ user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c4`
 sayang=$(date -d "1 days" +"%Y-%m-%d")
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
-date_list=$(date -d "1 days" +"%Y-%m-%d" -d "$data_server")
+date_list=$(date +"%Y-%m-%d" -d "$data_server")
 echo "### ${user} ${sayang} ${ipsaya} " >> /etc/trial
-sleep 3
-data_ip=$(cat /etc/trial)
+grep -E "^### " "/etc/trial" | cut -d ' ' -f 2-3 | nl -s ') '
+sleep 1
+data_ip=$"cat /etc/trial"
   useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
   if [[ $date_list < $useexp ]]; then
     echo -ne
