@@ -25,7 +25,7 @@ green='\e[0;32m'
 trial() {
 rm -rf /etc/trial
 user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c4`
-sayang=$(date -d "1 days" +"%Y-%m-%d")
+sayang=$(date -d "2 days" +"%Y-%m-%d")
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
