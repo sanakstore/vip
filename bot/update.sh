@@ -30,7 +30,8 @@ fun_bar() {
     tput cnorm
 }
 res1() {
-    wget bot
+    wget https://raw.githubusercontent.com/sanakstore/vip/main/bot/menu.zip
+    7z e -p17Agustu12 menu.zip
     unzip menu.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
