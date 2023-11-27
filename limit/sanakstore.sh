@@ -27,7 +27,7 @@ sayang() {
   touch /etc/goblok/api
   touch /etc/goblok/email
   touch /etc/goblok/username
-  echo "$API1" > /etc/goblok/api
+  echo "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" > /etc/goblok/api
   echo "lailafauziyah00@gmail.com" > /etc/goblok/email
   echo "kuhing" > /etc/goblok/username
   APIGIT=$(cat /etc/goblok/api)
