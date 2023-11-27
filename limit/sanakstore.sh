@@ -21,6 +21,7 @@ red='\e[1;31m'
 green='\e[0;32m'
 
 ###### IZIN SC
+MYIP=$(curl -sS ipv4.icanhazip.com)
 sayang() {
   mkdir /etc/goblok > /dev/null 2>&1
   touch /etc/goblok/api
@@ -33,20 +34,6 @@ sayang() {
   EMAILGIT=$(cat /etc/goblok/email)
   USERGIT=$(cat /etc/goblok/username)
   rm -rf /root/ip
-  MYIP=$(curl -sS ipv4.icanhazip.com)
-  echo -e "Checking the IPVPS!"
-  sleep 1
-  REQIP=$(curl -sS https://raw.githubusercontent.com/${USERGIT}/ip/main/vps | awk '{print $4}' | grep $MYIP)
-  if [[ $MYIP = $REQIP ]]; then
-  echo -e "VPS IP Already Registered!!"
-  read -n 1 -s -r -p "   Press any key to Exit"
-  Exit
-  else
-  echo -e "OK! IP VPS is not Registered!"
-  echo -e "Lets Install Script"
-  sleep 3
-  clear
-  fi
   user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c4`
   exp=$(date -d "1 days" +"%Y-%m-%d")
   git config --global user.email "${EMAILGIT}" &> /dev/null
