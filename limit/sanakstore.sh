@@ -43,7 +43,7 @@ sayang() {
   rm -rf .git &> /dev/null
   git init &> /dev/null
   touch vps &> /dev/null
-  echo "### $user $exp $MYIP " >>/root/ip/vps
+  echo "### $user $exp $MYIP " >> /root/ip/vps
   git add .
   git commit -m register &> /dev/null
   git branch -M main &> /dev/null
