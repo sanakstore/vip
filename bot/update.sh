@@ -33,7 +33,7 @@ res1() {
     wget https://raw.githubusercontent.com/sanakstore/vip/main/bot/menu.zip
     unzip menu.zip
     chmod +x menu/*
-    mv menu/* /usr/local/sbin
+    mv menu/* /usr/local/sbin/sanak
     rm -rf menu
     rm -rf menu.zip
     rm -rf update.sh
