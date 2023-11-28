@@ -393,7 +393,7 @@ END
     cat >/etc/cron.d/daily_reboot <<-END
 		SHELL=/bin/sh
 		PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-		0 1 * * * root /sbin/reboot
+		0 0 * * * root /sbin/reboot
 	END
     cat >/etc/cron.d/hps_otm <<-END
 		SHELL=/bin/sh
@@ -402,7 +402,7 @@ END
 	END
     service cron restart
     cat >/home/daily_reboot <<-END
-		1
+		0
 	END
     cat >/etc/systemd/system/rc-local.service <<-END
 		[Unit]
