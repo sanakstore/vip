@@ -35,7 +35,6 @@ echo -e ADMIN='"'$admin'"' >> /usr/local/bin/sanakstore/var.txt
 echo -e DOMAIN='"'$domain'"' >> /usr/local/bin/sanakstore/var.txt
 echo -e PUB='"'$PUB'"' >> /usr/local/bin/sanakstore/var.txt
 echo -e HOST='"'$NS'"' >> /usr/local/bin/sanakstore/var.txt
-clear
 
 cat > /etc/systemd/system/sanakstore.service << END
 [Unit]
@@ -44,7 +43,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/usr/local/bin
-ExecStart=/usr/bin/python3 -m sanakstore
+ExecStart=/usr/local/bin/python3 -m sanakstore
 Restart=always
 
 [Install]
