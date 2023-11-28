@@ -8,11 +8,11 @@ NC='\e[0m'
 #install
 apt update && apt upgrade
 apt install python3 python3-pip git
-cd /usr/bin
+cd /usr/local/bin
 wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanak.zip
 unzip sanak.zip
-mv sanak/* /usr/bin
-chmod +x /usr/bin/*
+mv sanak/* /usr/local/bin
+chmod +x /usr/local/bin/*
 rm -rf sanak.zip
 clear
 wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanakstore.zip
@@ -30,11 +30,11 @@ echo -e "${grenbo}[*] Info Id Telegram : @MissRose_bot , perintah /info${NC}"
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 read -e -p "[*] Input your Bot Token : " bottoken
 read -e -p "[*] Input Your Id Telegram :" admin
-echo -e BOT_TOKEN='"'$bottoken'"' >> /usr/bin/sanakstore/var.txt
-echo -e ADMIN='"'$admin'"' >> /usr/bin/sanakstore/var.txt
-echo -e DOMAIN='"'$domain'"' >> /usr/bin/sanakstore/var.txt
-echo -e PUB='"'$PUB'"' >> /usr/bin/sanakstore/var.txt
-echo -e HOST='"'$NS'"' >> /usr/bin/sanakstore/var.txt
+echo -e BOT_TOKEN='"'$bottoken'"' >> /usr/local/bin/sanakstore/var.txt
+echo -e ADMIN='"'$admin'"' >> /usr/local/bin/sanakstore/var.txt
+echo -e DOMAIN='"'$domain'"' >> /usr/local/bin/sanakstore/var.txt
+echo -e PUB='"'$PUB'"' >> /usr/local/bin/sanakstore/var.txt
+echo -e HOST='"'$NS'"' >> /usr/local/bin/sanakstore/var.txt
 clear
 
 cat > /etc/systemd/system/sanakstore.service << END
@@ -43,7 +43,7 @@ Description=Simple sanakstore - @sanakstore
 After=network.target
 
 [Service]
-WorkingDirectory=/usr/bin
+WorkingDirectory=/usr/local/bin
 ExecStart=/usr/bin/python3 -m sanakstore
 Restart=always
 
