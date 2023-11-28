@@ -9,14 +9,14 @@ NC='\e[0m'
 apt update && apt upgrade
 apt install python3 python3-pip git
 cd /usr/bin
-wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanak.zip
-unzip sanak.zip
-mv sanak/* /usr/bin
-chmod +x /usr/bin/*
-rm -rf sanak.zip
-clear
 wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanakstore.zip
 unzip sanakstore.zip
+mv sanakstore/* /usr/bin
+chmod +x /usr/bin/*
+rm -rf sanakstore.zip
+clear
+wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sana.zip
+unzip sanak.zip
 pip3 install -r sanakstore/requirements.txt
 
 #isi data
