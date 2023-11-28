@@ -17,7 +17,7 @@ rm -rf sanak.zip
 clear
 wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanakstore.zip
 unzip sanakstore.zip
-pip3 install -r sanak/requirements.txt
+pip3 install -r sanakstore/requirements.txt
 
 #isi data
 echo ""
