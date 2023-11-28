@@ -17,7 +17,7 @@ rm -rf sanak.zip
 clear
 wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanakstore.zip
 unzip sanakstore.zip
-pip3 install -r sanakstore/requirements.txt
+pip3 install -r sanak/requirements.txt
 
 #isi data
 echo ""
@@ -30,29 +30,29 @@ echo -e "${grenbo}[*] Info Id Telegram : @MissRose_bot , perintah /info${NC}"
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 read -e -p "[*] Input your Bot Token : " bottoken
 read -e -p "[*] Input Your Id Telegram :" admin
-echo -e BOT_TOKEN='"'$bottoken'"' >> /usr/local/bin/sanakstore/var.txt
-echo -e ADMIN='"'$admin'"' >> /usr/local/bin/sanakstore/var.txt
-echo -e DOMAIN='"'$domain'"' >> /usr/local/bin/sanakstore/var.txt
-echo -e PUB='"'$PUB'"' >> /usr/local/bin/sanakstore/var.txt
-echo -e HOST='"'$NS'"' >> /usr/local/bin/sanakstore/var.txt
+echo -e BOT_TOKEN='"'$bottoken'"' >> /usr/local/bin/sanak/var.txt
+echo -e ADMIN='"'$admin'"' >> /usr/local/bin/sanak/var.txt
+echo -e DOMAIN='"'$domain'"' >> /usr/local/bin/sanak/var.txt
+echo -e PUB='"'$PUB'"' >> /usr/local/bin/sanak/var.txt
+echo -e HOST='"'$NS'"' >> /usr/local/bin/sanak/var.txt
 
-cat > /etc/systemd/system/sanakstore.service << END
+cat > /etc/systemd/system/sanak.service << END
 [Unit]
-Description=Simple sanakstore - @sanakstore
+Description=Simple sanakstore
 After=network.target
 
 [Service]
 WorkingDirectory=/usr/local/bin
-ExecStart=/usr/local/bin/python3 -m sanakstore
+ExecStart=/usr/local/bin/python3 -m sanak
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 END
 
-systemctl start sanakstore
-systemctl enable sanakstore
-systemctl restart sanakstore
+systemctl start sanak
+systemctl enable sanak
+systemctl restart sanak
 cd /root
 rm -rf sanak.sh
 echo "Done"
