@@ -24,7 +24,7 @@ mkdir /etc/goblok > /dev/null 2>&1
   touch /etc/goblok/api
   touch /etc/goblok/email
   touch /etc/goblok/username
-  echo "$API1" > /etc/goblok/api
+  echo "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" > /etc/goblok/api
   echo "lailafauziyah00@gmail.com" > /etc/goblok/email
   echo "kuhing" > /etc/goblok/username
   sayang
@@ -594,6 +594,65 @@ chown -R www-data:www-data /etc/msmtprc
 print_success "Backup Server"
 }
 
+instalbot() {
+    cd
+    UUID=$(tr </dev/urandom -dc a-z | head -c8)
+    PB=$(cat /etc/slowdns/server.pub)
+    NS=$(cat /etc/xray/dns)
+    SD=$(cat /etc/xray/domain)
+    pip3.8 install --upgrade pip
+    pip3.8 install -r /etc/sanakstore/requirements.txt
+    pip3.8 install pyarmor
+
+    cd
+    cat >/etc/sanakstore/var.txt <<EOF
+BOT_TOKEN="$TOKET"
+ADMIN="$IDTELE"
+DOMAIN="${SD}"
+PUB="${PB}"
+HOST="${NS}"
+SESSIONS="${UUID}"
+USER1="557345429"
+USER2="127484543"
+USER3="657482434"
+USER4="346482429"
+USER5="345582323"
+USER6="237482359"
+USER7="447482429"
+USER8="562487456"
+USER9="234482429"
+USER10="753743453"
+EOF
+
+    cat >/usr/bin/runbot <<EOF
+#!/bin/bash
+
+cd /etc
+python3.8 -m sanakstore
+EOF
+    cat >/etc/systemd/system/sanakstore.service <<EOF
+[Unit]
+Description=sanakstore BOT 
+Documentation=SanakStore
+After=syslog.target network-online.target
+
+[Service]
+User=root
+NoNewPrivileges=true
+ExecStart=/usr/bin/runbot
+
+[Install]
+WantedBy=multi-user.target
+
+EOF
+    chmod +x /usr/bin/runbot
+    systemctl daemon-reload
+    systemctl stop sanakstore
+    systemctl enable sanakstore
+    systemctl start sanakstore
+    systemctl restart sanakstore
+}
+
 notif1() {
     USRSC=$(curl https://raw.githubusercontent.com/kuhing/ip/main/vps | grep $ipsaya | awk '{print $2}')
     EXPSC=$(curl https://raw.githubusercontent.com/kuhing/ip/main/vps | grep $ipsaya | awk '{print $3}')
@@ -749,6 +808,7 @@ main() {
         ins_janda
         ins_udp
 	notif1
+        instalbot
         restart_system
         ;;
 
@@ -767,6 +827,7 @@ main() {
         ins_janda
         ins_udp
 	notif2
+        instalbot
         restart_system
         ;;
 
@@ -784,6 +845,8 @@ main() {
         ins_backup
         ins_janda
         ins_udp
+	notif1
+	instalbot
         restart_system
          ;;
     *)
