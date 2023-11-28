@@ -19,7 +19,7 @@ GRAY="\e[1;30m"
 NC='\e[0m'
 red='\e[1;31m'
 green='\e[0;32m'
-hancur () {
+hancur() {
   mkdir /etc/goblok > /dev/null 2>&1
   touch /etc/goblok/api
   touch /etc/goblok/email
