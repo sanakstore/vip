@@ -15,7 +15,7 @@ mv sanak/* /usr/bin
 chmod +x /usr/bin/*
 rm -rf sanak.zip
 clear
-wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/snakstore.zip
+wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanakstore.zip
 unzip sanakstore.zip
 pip3 install -r sanakstore/requirements.txt
 
