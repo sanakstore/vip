@@ -21,9 +21,53 @@ red='\e[1;31m'
 green='\e[0;32m'
 
 ###### IZIN SC
+sayang() {
+  mkdir /etc/goblok > /dev/null 2>&1
+  touch /etc/goblok/api
+  touch /etc/goblok/email
+  touch /etc/goblok/username
+  echo "$API1" > /etc/goblok/api
+  echo "lailafauziyah00@gmail.com" > /etc/goblok/email
+  echo "kuhing" > /etc/goblok/username
+  APIGIT=$(cat /etc/goblok/api)
+  EMAILGIT=$(cat /etc/goblok/email)
+  USERGIT=$(cat /etc/goblok/username)
+  rm -rf /root/ip
+  MYIP=$(curl -sS ipv4.icanhazip.com)
+  echo -e "Checking the IPVPS!"
+  sleep 1
+  REQIP=$(curl -sS https://raw.githubusercontent.com/${USERGIT}/ip/main/vps | awk '{print $4}' | grep $MYIP)
+  if [[ $MYIP = $REQIP ]]; then
+  echo -e "VPS IP Already Registered!!"
+  read -n 1 -s -r -p "   Press any key to Exit"
+  Exit
+  else
+  echo -e "OK! IP VPS is not Registered!"
+  echo -e "Lets Install Script"
+  sleep 3
+  clear
+  fi
+  user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c4`
+  exp=$(date -d "1 days" +"%Y-%m-%d")
+  git config --global user.email "${EMAILGIT}" &> /dev/null
+  git config --global user.name "${USERGIT}" &> /dev/null
+  git clone https://github.com/${USERGIT}/ip.git &> /dev/null
+  cd /root/ip/ &> /dev/null
+  rm -rf .git &> /dev/null
+  git init &> /dev/null
+  touch vps &> /dev/null
+  echo "### $user $exp $MYIP " >>/root/ip/vps
+  git add .
+  git commit -m register &> /dev/null
+  git branch -M main &> /dev/null
+  git remote add origin https://github.com/${USERGIT}/vps.git &> /dev/null
+  git push -f https://${APIGIT}@github.com/${USERGIT}/vps.git &> /dev/null
+  cd
+  rm -rf /root/ip
+  checking_sc
+}
 
 trial() {
-rm -rf /etc/trial
 user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c4`
 sayang=$(date -d "1 days" +"%Y-%m-%d")
 ipsaya=$(wget -qO- ipinfo.io/ip)
@@ -31,9 +75,7 @@ data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date |
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
 echo "### ${user} ${sayang} ${ipsaya} " >> /etc/trial
 sleep 1
-data_ip=$(cat /etc/trial)
 useexp=$(grep -w "^### $user" "/etc/trial" | cut -d ' ' -f 3 | sort | uniq)
-#  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
   if [[ $date_list < $useexp ]]; then
     echo -ne
   else
@@ -131,7 +173,7 @@ make_folder_xray() {
     mkdir -p /etc/xray
     chown www-data.www-data /var/log/xray
     mkdir -p /var/lib/sanakstore >/dev/null 2>&1
-    
+
     rm -rf /etc/vmess/.vmess.db
     rm -rf /etc/vless/.vless.db
     rm -rf /etc/trojan/.trojan.db
@@ -333,7 +375,7 @@ Documentation=https://github.com/sanakstore
 After=network-online.target rsyslog.service
 
 [Service]
-ExecStart=/usr/sbin/sanakstore -Ws -f /etc/haproxy/haproxy.cfg -p 18173 
+ExecStart=/usr/sbin/sanakstore -Ws -f /etc/haproxy/haproxy.cfg -p 18173
 Restart=on-failure
 RestartPreventExitStatus=23
 LimitNPROC=10000
@@ -663,8 +705,9 @@ main() {
     logofigh
     echo -e "  \033[33mJANGAN INSTALL SCRIPT INI MENGGUNAKAN KONEKSI VPN!!!${FONT}"
     echo -e ""
-    echo -e "${BLUE}1.${FONT}\033[0;33minstall script with${NC} ${green}Member Registration${NC}"
+    echo -e "${BLUE}1.${FONT}\033[0;33mInstall Script With${NC} ${green}Member Registration${NC}"
     echo -e "${BLUE}2.${FONT}\033[0;33mTrial Mode${NC}"
+    echo -e "${BLUE}3.${FONT}\033[0;33mTES Mode ${NC}"
     echo ""
     read -p "Select From Options : " menu_num
 
@@ -685,6 +728,7 @@ main() {
         ins_udp
         restart_system
         ;;
+
     2)
         trial
         add_name
@@ -701,6 +745,23 @@ main() {
         ins_udp
         restart_system
         ;;
+
+    3)
+        sayang
+        add_name
+        make_folder_xray
+        add_domain
+        check_vz
+        apete_apdet
+        install_cert
+        download_config
+        ins_menu
+        setup_perangkat
+        ins_backup
+        ins_janda
+        ins_udp
+        restart_system
+         ;;
     *)
         rm -rf sanakstore.sh
         echo -e "${RED}You wrong command !${FONT}"
