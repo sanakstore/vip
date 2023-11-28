@@ -9,13 +9,13 @@ NC='\e[0m'
 apt update && apt upgrade
 apt install python3 python3-pip git
 cd /usr/bin
-wget -q https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanak.zip
+wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanak.zip
 unzip sanak.zip
 mv sanak/* /usr/bin
 chmod +x /usr/bin/*
 rm -rf sanak.zip
 clear
-wget -q https://raw.githubusercontent.com/sanakstore/vip/main/backup/sanakstore.zip
+wget https://raw.githubusercontent.com/sanakstore/vip/main/backup/snakstore.zip
 unzip sanakstore.zip
 pip3 install -r sanakstore/requirements.txt
 
@@ -39,7 +39,7 @@ clear
 
 cat > /etc/systemd/system/sanakstore.service << END
 [Unit]
-Description=Simple sanakstore - @Baung2012
+Description=Simple sanakstore - @sanakstore
 After=network.target
 
 [Service]
@@ -55,7 +55,7 @@ systemctl start sanakstore
 systemctl enable sanakstore
 systemctl restart sanakstore
 cd /root
-rm -rf julak.sh
+rm -rf sanak.sh
 echo "Done"
 echo "Your Data Bot"
 echo -e "==============================="
