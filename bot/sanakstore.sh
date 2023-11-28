@@ -835,7 +835,7 @@ main() {
         ;;
 
     3)
-        haruk
+        hancur
         add_name
         make_folder_xray
         add_domain
