@@ -19,28 +19,26 @@ GRAY="\e[1;30m"
 NC='\e[0m'
 red='\e[1;31m'
 green='\e[0;32m'
-
-###### IZIN SC
-sayang() {
-  mkdir /etc/goblok > /dev/null 2>&1
+hancur () {
+mkdir /etc/goblok > /dev/null 2>&1
   touch /etc/goblok/api
   touch /etc/goblok/email
   touch /etc/goblok/username
   echo "$API1" > /etc/goblok/api
   echo "lailafauziyah00@gmail.com" > /etc/goblok/email
   echo "kuhing" > /etc/goblok/username
-  APIGIT=$(cat /etc/goblok/api)
-  EMAILGIT=$(cat /etc/goblok/email)
-  USERGIT=$(cat /etc/goblok/username)
+  sayang
+}
+###### IZIN SC
+sayang() {
   rm -rf /root/ip
-  MYIP=$(curl -sS ipv4.icanhazip.com)
+  mkdir /root/ip
   echo -e "Checking the IPVPS!"
   sleep 1
-  REQIP=$(curl -sS https://raw.githubusercontent.com/${USERGIT}/ip/main/vps | awk '{print $4}' | grep $MYIP)
+  REQIP=$(wget -qO- https://raw.githubusercontent.com/${USERGIT}/ip/main/vps | awk '{print $4}' | grep $MYIP)
   if [[ $MYIP = $REQIP ]]; then
+   echo -ne
   echo -e "VPS IP Already Registered!!"
-  read -n 1 -s -r -p "   Press any key to Exit"
-  Exit
   else
   echo -e "OK! IP VPS is not Registered!"
   echo -e "Lets Install Script"
@@ -773,7 +771,7 @@ main() {
         ;;
 
     3)
-        sayang
+        haruk
         add_name
         make_folder_xray
         add_domain
