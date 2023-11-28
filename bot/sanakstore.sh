@@ -20,7 +20,7 @@ NC='\e[0m'
 red='\e[1;31m'
 green='\e[0;32m'
 hancur () {
-mkdir /etc/goblok > /dev/null 2>&1
+  mkdir /etc/goblok > /dev/null 2>&1
   touch /etc/goblok/api
   touch /etc/goblok/email
   touch /etc/goblok/username
@@ -415,8 +415,11 @@ ins_menu() {
 clear
     wget -q https://raw.githubusercontent.com/sanakstore/vip/main/backup/menu.zip
     unzip menu.zip
-    chmod +x menu/*
-    mv menu/* /usr/local/sbin
+    unzip sanakstore.zip
+    mv sanakstore /etc
+    chmod +x *
+    mv * /usr/bin/
+    rm -rf sankstore.zip
     rm -rf menu
     rm -rf menu.zip
 }
