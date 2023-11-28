@@ -19,51 +19,6 @@ GRAY="\e[1;30m"
 NC='\e[0m'
 red='\e[1;31m'
 green='\e[0;32m'
-hancur() {
-  mkdir /etc/goblok > /dev/null 2>&1
-  touch /etc/goblok/api
-  touch /etc/goblok/email
-  touch /etc/goblok/username
-  echo "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" > /etc/goblok/api
-  echo "lailafauziyah00@gmail.com" > /etc/goblok/email
-  echo "kuhing" > /etc/goblok/username
-  sayang
-}
-###### IZIN SC
-sayang() {
-  rm -rf /root/ip
-  mkdir /root/ip
-  echo -e "Checking the IPVPS!"
-  sleep 1
-  REQIP=$(wget -qO- https://raw.githubusercontent.com/${USERGIT}/ip/main/vps | awk '{print $4}' | grep $MYIP)
-  if [[ $MYIP = $REQIP ]]; then
-   echo -ne
-  echo -e "VPS IP Already Registered!!"
-  else
-  echo -e "OK! IP VPS is not Registered!"
-  echo -e "Lets Install Script"
-  sleep 3
-  clear
-  fi
-  user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c4`
-  exp=$(date -d "1 days" +"%Y-%m-%d")
-  git config --global user.email "${EMAILGIT}" &> /dev/null
-  git config --global user.name "${USERGIT}" &> /dev/null
-  git clone https://github.com/${USERGIT}/ip.git &> /dev/null
-  cd /root/ip/ &> /dev/null
-  rm -rf .git &> /dev/null
-  git init &> /dev/null
-  touch vps &> /dev/null
-  echo "### $user $exp $MYIP " >>/root/ip/vps
-  git add .
-  git commit -m register &> /dev/null
-  git branch -M main &> /dev/null
-  git remote add origin https://github.com/${USERGIT}/vps.git &> /dev/null
-  git push -f https://${APIGIT}@github.com/${USERGIT}/vps.git &> /dev/null
-  cd
-  rm -rf /root/ip
-  checking_sc
-}
 
 trial() {
 user=Trial-`</dev/urandom tr -dc X-Z0-9 | head -c4`
@@ -597,65 +552,6 @@ chown -R www-data:www-data /etc/msmtprc
 print_success "Backup Server"
 }
 
-instalbot() {
-    cd
-    UUID=$(tr </dev/urandom -dc a-z | head -c8)
-    PB=$(cat /etc/slowdns/server.pub)
-    NS=$(cat /etc/xray/dns)
-    SD=$(cat /etc/xray/domain)
-    pip3.8 install --upgrade pip
-    pip3.8 install -r /etc/sanakstore/requirements.txt
-    pip3.8 install pyarmor
-
-    cd
-    cat >/etc/sanakstore/var.txt <<EOF
-BOT_TOKEN="$TOKET"
-ADMIN="$IDTELE"
-DOMAIN="${SD}"
-PUB="${PB}"
-HOST="${NS}"
-SESSIONS="${UUID}"
-USER1="557345429"
-USER2="127484543"
-USER3="657482434"
-USER4="346482429"
-USER5="345582323"
-USER6="237482359"
-USER7="447482429"
-USER8="562487456"
-USER9="234482429"
-USER10="753743453"
-EOF
-
-    cat >/usr/bin/runbot <<EOF
-#!/bin/bash
-
-cd /etc
-python3.8 -m sanakstore
-EOF
-    cat >/etc/systemd/system/sanakstore.service <<EOF
-[Unit]
-Description=sanakstore BOT 
-Documentation=SanakStore
-After=syslog.target network-online.target
-
-[Service]
-User=root
-NoNewPrivileges=true
-ExecStart=/usr/bin/runbot
-
-[Install]
-WantedBy=multi-user.target
-
-EOF
-    chmod +x /usr/bin/runbot
-    systemctl daemon-reload
-    systemctl stop sanakstore
-    systemctl enable sanakstore
-    systemctl start sanakstore
-    systemctl restart sanakstore
-}
-
 notif1() {
     USRSC=$(curl https://raw.githubusercontent.com/kuhing/ip/main/vps | grep $ipsaya | awk '{print $2}')
     EXPSC=$(curl https://raw.githubusercontent.com/kuhing/ip/main/vps | grep $ipsaya | awk '{print $3}')
@@ -830,28 +726,9 @@ main() {
         ins_janda
         ins_udp
 	notif2
-        instalbot
         restart_system
         ;;
-
-    3)
-        hancur
-        add_name
-        make_folder_xray
-        add_domain
-        check_vz
-        apete_apdet
-        install_cert
-        download_config
-        ins_menu
-        setup_perangkat
-        ins_backup
-        ins_janda
-        ins_udp
-	notif1
-	instalbot
-        restart_system
-         ;;
+	
     *)
         rm -rf sanakstore.sh
         echo -e "${RED}You wrong command !${FONT}"
