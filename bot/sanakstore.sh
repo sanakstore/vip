@@ -596,8 +596,7 @@ chown -R www-data:www-data /etc/msmtprc
 print_success "Backup Server"
 }
 
-
-restart_system() {
+notif1() {
     USRSC=$(curl https://raw.githubusercontent.com/kuhing/ip/main/vps | grep $ipsaya | awk '{print $2}')
     EXPSC=$(curl https://raw.githubusercontent.com/kuhing/ip/main/vps | grep $ipsaya | awk '{print $3}')
     TIME=`date -d "0 days" +"%d-%m-%Y" `
@@ -617,6 +616,31 @@ restart_system() {
 <i>Github Sanakstore</i>
 "'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ🐳","url":"https://t.me/Baung2012"},{"text":"Whatsapp🐬","url":"https://wa.me/6285754292950"}]]}'
     curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+
+notif2() {
+    USRSC=$(grep -E "^### " "/etc/trial" | cut -d ' ' -f 2)
+    EXPSC=$(grep -E "^### " "/etc/trial" | cut -d ' ' -f 3)
+    TIME=`date -d "0 days" +"%d-%m-%Y" `
+    TIMEZONE=$(printf '%(%H:%M:%S)T')
+    TEXT="
+<code>────────────────────</code>
+<b>⚠️ INSTALL AUTOSCRIPT SANAKSTORE ⚠️</b>
+<code>────────────────────</code>
+<code>ID     : </code><code>$USRSC</code>
+<code>Domain : </code><code>$domain</code>
+<code>Date   : </code><code>$TIME</code>
+<code>Time   : </code><code>$TIMEZONE</code>
+<code>Ip vps : </code><code>$ipsaya</code>
+<code>Exp Sc : </code><code>$EXPSC</code>
+<code>────────────────────</code>
+<i>Automatic Notification from</i>
+<i>Github Sanakstore</i>
+"'&reply_markup={"inline_keyboard":[[{"text":"ᴏʀᴅᴇʀ🐳","url":"https://t.me/Baung2012"},{"text":"Whatsapp🐬","url":"https://wa.me/6285754292950"}]]}'
+    curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+
+restart_system() {
     cp /etc/openvpn/*.ovpn /var/www/html/
     sed -i "s/xxx/${domain}/g" /etc/nginx/conf.d/xray.conf
     sed -i "s/xxx/${domain}/g" /etc/haproxy/haproxy.cfg
@@ -726,6 +750,7 @@ main() {
         ins_backup
         ins_janda
         ins_udp
+	notif1
         restart_system
         ;;
 
@@ -743,6 +768,7 @@ main() {
         ins_backup
         ins_janda
         ins_udp
+	notif2
         restart_system
         ;;
 
