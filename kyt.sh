@@ -30,11 +30,11 @@ echo -e "${grenbo}[*] Info Id Telegram : @MissRose_bot , perintah /info${NC}"
 echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
 read -e -p "[*] Input your Bot Token : " bottoken
 read -e -p "[*] Input Your Id Telegram :" admin
-echo -e BOT_TOKEN='"'$bottoken'"' >> /usr/bin/sanakstore/var.txt
-echo -e ADMIN='"'$admin'"' >> /usr/bin/sanakstore/var.txt
-echo -e DOMAIN='"'$domain'"' >> /usr/bin/sanakstore/var.txt
-echo -e PUB='"'$PUB'"' >> /usr/bin/sanakstore/var.txt
-echo -e HOST='"'$NS'"' >> /usr/bin/sanakstore/var.txt
+echo -e BOT_TOKEN='"'$bottoken'"' >> /usr/bin/kyt/var.txt
+echo -e ADMIN='"'$admin'"' >> /usr/bin/kyt/var.txt
+echo -e DOMAIN='"'$domain'"' >> /usr/bin/kyt/var.txt
+echo -e PUB='"'$PUB'"' >> /usr/bin/kyt/var.txt
+echo -e HOST='"'$NS'"' >> /usr/bin/kyt/var.txt
 clear
 
 cat > /etc/systemd/system/kyt.service << END
