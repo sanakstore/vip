@@ -37,14 +37,14 @@ echo -e PUB='"'$PUB'"' >> /usr/bin/baung/var.txt
 echo -e HOST='"'$NS'"' >> /usr/bin/baung/var.txt
 clear
 
-cat > /etc/systemd/system/baung.service << END
+cat > /etc/systemd/system/kyt.service << END
 [Unit]
-Description=Simple baung - @baung
+Description=Simple kyt - @kyt
 After=network.target
 
 [Service]
 WorkingDirectory=/usr/bin
-ExecStart=/usr/bin/python3 -m baung
+ExecStart=/usr/bin/python3 -m kyt
 Restart=always
 
 [Install]
