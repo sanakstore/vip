@@ -9,15 +9,15 @@ NC='\e[0m'
 apt update && apt upgrade
 apt install python3 python3-pip git
 cd /usr/bin
-wget https://raw.githubusercontent.com/sanakstore/vip/main/bot/sanak.zip
-unzip sanak.zip
-mv sanak/* /usr/bin
+wget https://raw.githubusercontent.com/sanakstore/vip/main/bot/bot.zip
+unzip bot.zip
+mv bot/* /usr/bin
 chmod +x /usr/bin/*
-rm -rf sanak.zip
+rm -rf bot.zip
 clear
-wget https://raw.githubusercontent.com/sanakstore/vip/main/bot/sanakstore.zip
-unzip sanakstore.zip
-pip3 install -r sanakstore/requirements.txt
+wget https://raw.githubusercontent.com/sanakstore/vip/main/bot/kyt.zip
+unzip kyt.zip
+pip3 install -r kyt/requirements.txt
 
 #isi data
 echo ""
@@ -37,23 +37,23 @@ echo -e PUB='"'$PUB'"' >> /usr/bin/sanakstore/var.txt
 echo -e HOST='"'$NS'"' >> /usr/bin/sanakstore/var.txt
 clear
 
-cat > /etc/systemd/system/sanakstore.service << END
+cat > /etc/systemd/system/kyt.service << END
 [Unit]
-Description=Simple sanakstore - @sanakstore
+Description=Simple kyt - @kyt
 After=network.target
 
 [Service]
 WorkingDirectory=/usr/bin
-ExecStart=/usr/bin/python3 -m sanakstore
+ExecStart=/usr/bin/python3 -m kyt
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 END
 
-systemctl start sanakstore
-systemctl enable sanakstore
-systemctl restart sanakstore
+systemctl start kyt
+systemctl enable kyt
+systemctl restart kyt
 cd /root
 rm -rf kyt.sh
 echo "Done"
