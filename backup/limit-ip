@@ -1,18 +1,77 @@
 #!/bin/bash
-
-function send_log(){
+function send_logssh(){
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+TEXT="
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>⚠️NOTIF LIMIT IP SSH⚠️</b>
+<b>⚠️USER MULTI LOGIN⚠️</b>
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>USERNAME       :</b> <code>${username[$i]}</code>
+<b>LIMIT IP       :</b> <code>${slip} Login</code>
+<b>TOTAL IP LOGIN :</b> <code>${jumlah[$i]} Login</code>
+<code>◇━━━━━━━━━━━━━━◇</code>
+<code>I REMOVE ACCOUNT</code>
+<code>NO MULTI LOGINS!</code>
+"
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+function send_vmess(){
 CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
 KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 export TIME="10"
 export URL="https://api.telegram.org/bot$KEY/sendMessage"
 TEXT="
 <code>────────────────────</code>
-<b>⚠️NOTIF LIMIT IP SANAK STORE⚠️</b>
+<b>⚠️NOTIF LIMIT IP VMESS⚠️</b>
 <b>⚠️USER MULTI LOGIN⚠️</b>
 <code>────────────────────</code>
-<code>Username    : </code><code>$user</code>
-<code>Limit Ip    : </code><code>$jum2</code>
+<b>USERNAME        : </code><code>$user</code>
+<b>LIMIT IP        : </code><code>$iplimit Login</code>
+< b>TOTAL IP LOGIN :</b> <code>${jum2} Login</code>
 <code>────────────────────</code>
+<code>I REMOVE ACCOUNT</code>
+<code>NO MULTI LOGINS!</code>
+"
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+function send_vless(){
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+TEXT="
+<code>────────────────────</code>
+<b>⚠️NOTIF LIMIT IP VLESS⚠️</b>
+<b>⚠️USER MULTI LOGIN⚠️</b>
+<code>────────────────────</code>
+<b>USERNAME        : </code><code>$user</code>
+<b>LIMIT IP        : </code><code>$iplimit Login</code>
+< b>TOTAL IP LOGIN :</b> <code>${jum2} Login</code>
+<code>────────────────────</code>
+<code>I REMOVE ACCOUNT</code>
+<code>NO MULTI LOGINS!</code>
+"
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+function send_trojan(){
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+TEXT="
+<code>────────────────────</code>
+<b>⚠️NOTIF LIMIT IP TROJAN⚠️</b>
+<b>⚠️USER MULTI LOGIN⚠️</b>
+<code>────────────────────</code>
+<b>USERNAME        : </code><code>$user</code>
+<b>LIMIT IP        : </code><code>$iplimit Login</code>
+< b>TOTAL IP LOGIN :</b> <code>${jum2} Login</code>
+<code>────────────────────</code>
+<code>I REMOVE ACCOUNT</code>
+<code>NO MULTI LOGINS!</code>
 "
 curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
@@ -20,11 +79,11 @@ function vmip(){
 #LIMITVMESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/sanakstore/limit/vmess/ip`);
+data=( `ls /etc/vmess/ip`);
 #Decrypted By SANAK STORE
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/sanakstore/limit/vmess/ip/$user)
+        iplimit=$(cat /etc/vmess/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -34,10 +93,11 @@ data=( `ls /etc/sanakstore/limit/vmess/ip`);
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvmess.txt | wc -l)
-                  rm -rf /etc/sanakstoret/limit/vmess/ip/$user
-                  rm -rf /etc/limit/vmess/$user
-                  rm -rf /etc/trojan/log-create-${user}.log
-                  send_log
+                  rm -rf /etc/vmess/qouta/${user}
+                  rm -rf /etc/vmess/${user}
+                  rm -rf /etc/vmess/ip/${user}
+                  rm -rf /etc/log/vmess-${user}.log
+                  send_vmess
                 else
             echo ""
         fi
@@ -48,11 +108,11 @@ function vlip(){
 #LIMITVLESSIP
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/sanakstore/limit/vless/ip`);
+data=( `ls /etc/vless/ip`);
 #Decrypted By SANAK STORE
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/sanakstore/limit/vless/ip/$user)
+        iplimit=$(cat /etc/vless/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -62,10 +122,11 @@ data=( `ls /etc/sanakstore/limit/vless/ip`);
                   sed -i "/^### $user $exp/d" /etc/vless/.vless.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/ipvless.txt | wc -l)
-                  rm -rf /etc/sanakstore/limit/vless/ip/$user
-                  rm -rf /etc/limit/vless/$user
-                  rm -rf /etc/trojan/log-create-${user}.log
-                  send_log
+                  rm -rf /etc/vless/qouta/${user}
+                  rm -rf /etc/vless/${user}
+                  rm -rf /etc/vless/ip/${user}
+                  rm -rf /etc/log/vless-${user}.log
+                  send_vless
                 else
             echo ""
         fi
@@ -76,11 +137,11 @@ function trip(){
 #LIMITIPTROJAN
 echo -n > /var/log/xray/access.log
 sleep 4
-data=( `ls /etc/sanakstore/limit/trojan/ip`);
+data=( `ls /etc//trojan/ip`);
 #Decrypted By SANAK STORE
     for user in "${data[@]}"
     do
-        iplimit=$(cat /etc/sanakstore/limit/trojan/ip/$user)
+        iplimit=$(cat /etc/trojan/ip/$user)
         ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
         cekcek=$(echo -e "$ehh" | wc -l);
         if [[ $cekcek -gt $iplimit ]]; then
@@ -90,18 +151,18 @@ data=( `ls /etc/sanakstore/limit/trojan/ip`);
                   sed -i "/^### $user $exp/d" /etc/trojan/.trojan.db
                   systemctl restart xray >> /dev/null 2>&1
                   jum2=$(cat /tmp/iptrojan.txt | wc -l)
-                  rm -rf /etc/sanakstore/limit/trojan/ip/$user
-                  rm -rf /etc/limit/trojan/$user
-                  rm -rf /etc/trojan/log-create-${user}.log
-                  send_log
+                  rm -rf /etc/trojan/qouta/${user}
+                  rm -rf /etc/trojan/${user}
+                  rm -rf /etc/trojan/ip/${user}
+                  rm -rf /etc/log/trojan-${user}.log
+                  send_trojan
                 else
             echo ""
         fi
         sleep 0.1
     done
 }
-function sship(){
-#LIMITIPSSH
+function sship() {
 cat /etc/passwd | grep "/home/" | cut -d":" -f1 >/root/user.txt
 username1=($(cat "/root/user.txt"))
 i="0"
@@ -155,22 +216,24 @@ for PID in "${data[@]}"; do
     fi
 done
 for i in ${!username[*]}; do
-    slip=$(cat /etc/ssh/${username[$i]})
+    slip=$(cat /etc/ssh/ip/${username[$i]})
     if [ ${jumlah[$i]} -gt $slip ]; then
         date=$(date +"%Y-%m-%d")
         echo "$date - ${username[$i]} - ${jumlah[$i]}"
         echo "$date - ${username[$i]} - ${jumlah[$i]}" >>/root/log-limit.txt
-        kill ${username[$i]}
         userdel -f ${username[$i]}
         sed -i "/^### ${username[$i]}/d" /etc/ssh/.ssh.db
-        rm -rf /etc/ssh/log-create-${username}.log
-        rm -rf /etc/sanakstore/limit/ssh/ip/$username
-        rm -rf /etc/limit/ssh/$username
-        send_log
-    fi
+        rm -rf /etc/ssh/qouta/${username[$i]}
+        rm -rf /etc/ssh/ip/${username[$i]}
+        rm -rf /etc/ssh/${username[$i]}
+        rm -rf /etc/log/ssh-${username[$i]}.log
+        send_logssh
+      else
+  echo ""
+fi
+sleep 0.1
 done
 }
-
 if [[ ${1} == "vmip" ]]; then
 vmip
 elif [[ ${1} == "vlip" ]]; then
