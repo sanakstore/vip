@@ -126,7 +126,7 @@ make_folder_xray() {
     mkdir -p /etc/xray
     chown www-data.www-data /var/log/xray
     mkdir -p /var/lib/sanakstore >/dev/null 2>&1
-
+    chmod +x /var/lib/sanakstore
     rm -rf /etc/vmess/.vmess.db
     rm -rf /etc/vless/.vless.db
     rm -rf /etc/trojan/.trojan.db
@@ -134,12 +134,7 @@ make_folder_xray() {
     rm -rf /etc/ssh/.ssh.db
     rm -rf /etc/bot/.bot.db
     mkdir -p /etc/bot
-    mkdir -p /etc/log/vmess
-    mkdir -p /etc/log/vless
-    mkdir -p /etc/log/trojan
-    mkdir -p /etc/log/ss
-    mkdir -p /etc/log/ssh
-    mkdir -p /etc/xray
+    mkdir -p /etc/log
     mkdir -p /etc/vmess
     mkdir -p /etc/vless
     mkdir -p /etc/trojan
@@ -148,15 +143,17 @@ make_folder_xray() {
     mkdir -p /usr/bin/xray/
     mkdir -p /var/log/xray/
     mkdir -p /var/www/html
-    mkdir -p /etc/sanakstore/limit/vmess/ip
-    mkdir -p /etc/sanakstore/limit/vless/ip
-    mkdir -p /etc/sanakstore/limit/trojan/ip
-    mkdir -p /etc/sanakstore/limit/ssh/ip
-    mkdir -p /etc/limit/vmess
-    mkdir -p /etc/limit/vless
-    mkdir -p /etc/limit/trojan
-    mkdir -p /etc/limit/ssh
     chmod +x /var/log/xray
+    touch /etc/vmess/ip
+    touch /etc/vless/ip
+    touch /etc/trojan/ip
+    touch /etc/ssh/ip
+    touch /etc/ss/ip
+    touch /etc/vmess/qouta
+    touch /etc/vless/qouta
+    touch /etc/trojan/qouta
+    touch /etc/ssh/qouta
+    touch /etc/ss/qouta
     touch /etc/xray/domain
     touch /var/log/xray/access.log
     touch /var/log/xray/error.log
@@ -317,9 +314,9 @@ apete_apdet() {
     wget -q -O /etc/ssh/sshd_config "https://github.com/sanakstore/vip/raw/main/backup/sshd" >/dev/null 2>&1
     wget -q -O /etc/sanakstore.txt "https://github.com/sanakstore/vip/raw/main/backup/banner" >/dev/null 2>&1
     wget -O /etc/pam.d/common-password "https://github.com/sanakstore/vip/raw/main/backup/common-password" >/dev/null 2>&1
-    wget -O /usr/sbin/sanakstore "https://github.com/sanakstore/vip/raw/main/backup/sanakstore" >/dev/null 2>&1
+    wget -O /usr/sbin/kuhing "https://github.com/sanakstore/vip/raw/main/backup/kuhing" >/dev/null 2>&1
     wget -q -O /etc/ipserver "https://github.com/sanakstore/vip/raw/main/backup/ipserver" && bash /etc/ipserver >/dev/null 2>&1
-    chmod +x /usr/sbin/sanakstore
+    chmod +x /usr/sbin/kuhing
     chmod +x /etc/pam.d/common-password
     cat >/lib/systemd/system/haproxy.service <<EOF
 [Unit]
@@ -328,7 +325,7 @@ Documentation=https://github.com/sanakstore
 After=network-online.target rsyslog.service
 
 [Service]
-ExecStart=/usr/sbin/sanakstore -Ws -f /etc/haproxy/haproxy.cfg -p 18173
+ExecStart=/usr/sbin/kuhing -Ws -f /etc/haproxy/haproxy.cfg -p 18173
 Restart=on-failure
 RestartPreventExitStatus=23
 LimitNPROC=10000
@@ -378,8 +375,8 @@ clear
 
 ins_menu2() {
 clear
-    wget -q https://raw.githubusercontent.com/sanakstore/vip/main/bot/menu.zip
-    unzip menu.zip
+    wget -q https://raw.githubusercontent.com/sanakstore/vip/main/bot/menu1.zip
+    unzip menu1.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
     rm -rf menu
