@@ -380,7 +380,7 @@ clear
     chmod +x menu/*
     mv menu/* /usr/local/sbin
     rm -rf menu
-    rm -rf menu.zip
+    rm -rf menu1.zip
 }
 
 ins_janda() {
