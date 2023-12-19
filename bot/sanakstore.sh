@@ -681,7 +681,6 @@ main() {
     echo -e ""
     echo -e "${BLUE}1.${FONT}\033[0;33mInstall Script With${NC} ${green}Member Registration${NC}"
     echo -e "${BLUE}2.${FONT}\033[0;33mTrial Mode${NC}"
-    echo -e "${BLUE}3.${FONT}\033[0;33mTES Mode ${NC}"
     echo ""
     read -p "Select From Options : " menu_num
 
