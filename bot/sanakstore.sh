@@ -553,7 +553,7 @@ notif1() {
     TIMEZONE=$(printf '%(%H:%M:%S)T')
     TEXT="
 <code>────────────────────</code>
-<b>⚠️ INSTALL AUTOSCRIPT SANAKSTORE ⚠️</b>
+<b>⚠️ INSTALL AUTOSCRIPT PREMIUM ⚠️</b>
 <code>────────────────────</code>
 <code>ID     : </code><code>$USRSC</code>
 <code>Domain : </code><code>$domain</code>
@@ -575,7 +575,7 @@ notif2() {
     TIMEZONE=$(printf '%(%H:%M:%S)T')
     TEXT="
 <code>────────────────────</code>
-<b>⚠️ INSTALL AUTOSCRIPT SANAKSTORE ⚠️</b>
+<b>⚠️ INSTALL AUTOSCRIPT TRIAL ⚠️</b>
 <code>────────────────────</code>
 <code>ID     : </code><code>$USRSC</code>
 <code>Domain : </code><code>$domain</code>
