@@ -192,8 +192,8 @@ clear
     echo -e "   .----------------------------------."
 echo -e "   |\e[1;32mPlease Select a Domain Type Below \e[0m|"
 echo -e "   '----------------------------------'"
-echo -e "     ${YELLOW} Enter Your Subdomain${NC}"
-echo -e "     ${YELLOW} Use a Random Subdomain${NC}"
+echo -e "     ${YELLOW}(1) Enter Your Subdomain${NC}"
+echo -e "     ${YELLOW}(2) Use a Random Subdomain${NC}"
 echo -e "   ------------------------------------"
 read -p "   Please select numbers 1-2 or Any Button(Random) : " host
 echo ""
