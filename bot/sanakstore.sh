@@ -320,7 +320,7 @@ apete_apdet() {
     chmod +x /etc/pam.d/common-password
     cat >/lib/systemd/system/haproxy.service <<EOF
 [Unit]
-Description=Sanak Store Load Balancer
+Description=kuhing Load Balancer
 Documentation=https://github.com/sanakstore
 After=network-online.target rsyslog.service
 
@@ -365,7 +365,7 @@ install_cert() {
 
 ins_menu() {
 clear
-    wget -q https://raw.githubusercontent.com/sanakstore/vip/main/backup/menu.zip
+    wget -q https://raw.githubusercontent.com/sanakstore/vip/main/bot/menu.zip
     unzip menu.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
@@ -479,19 +479,19 @@ setup_perangkat() {
     curl -s ipinfo.io/city >>/etc/xray/city
     curl -s ipinfo.io/org | cut -d " " -f 2-10 >>/etc/xray/isp
     bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u www-data --version 1.7.5
-    wget -O /etc/xray/config.json "https://github.com/sanakstore/vip/raw/main/backup/config.json" >/dev/null 2>&1
-    wget -O /usr/bin/ws.py "https://github.com/sanakstore/vip/raw/main/backup/ws.py" >/dev/null 2>&1
-    wget -O /usr/bin/tun.conf "https://github.com/sanakstore/vip/raw/main/backup/tun.conf" >/dev/null 2>&1
-    wget -O /etc/systemd/system/ws.service "https://github.com/sanakstore/vip/raw/main/backup/socks.service" >/dev/null 2>&1
-    wget -q -O /usr/local/share/xray/geosite.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat" >/dev/null 2>&1
-    wget -q -O /usr/local/share/xray/geoip.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat" >/dev/null 2>&1
+    wget -O /etc/xray/config.json "https://github.com/sanakstore/vip/raw/main/backup/config.json"
+    wget -O /usr/bin/ws.py "https://github.com/sanakstore/vip/raw/main/backup/ws.py"
+    wget -O /usr/bin/tun.conf "https://github.com/sanakstore/vip/raw/main/backup/tun.conf"
+    wget -O /etc/systemd/system/ws.service "https://github.com/sanakstore/vip/raw/main/backup/socks.service"
+    wget -q -O /usr/local/share/xray/geosite.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+    wget -q -O /usr/local/share/xray/geoip.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
     chmod +x /etc/systemd/system/ws.service
     chmod +x /usr/bin/ws.py
     chmod 644 /usr/bin/tun.conf
     rm -rf /etc/systemd/system/xray.service.d
     cat >/etc/systemd/system/xray.service <<EOF
 [Unit]
-Description=Sanak Store Server Xray
+Description=Xray Service
 Documentation=https://t.me/Baung2012
 After=network.target nss-lookup.target
 
