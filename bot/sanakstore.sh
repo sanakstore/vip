@@ -309,13 +309,13 @@ apete_apdet() {
         echo -e "Your OS Is Not Supported ($(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g'))"
         exit 1
     fi
-    wget -q -O /etc/squid/squid.conf "https://github.com/sanakstore/vip/raw/main/backup/squid.conf" >/dev/null 2>&1
-    wget -q -O /etc/default/dropbear "https://github.com/sanakstore/vip/raw/main/backup/dropbear" >/dev/null 2>&1
-    wget -q -O /etc/ssh/sshd_config "https://github.com/sanakstore/vip/raw/main/backup/sshd" >/dev/null 2>&1
-    wget -q -O /etc/sanakstore.txt "https://github.com/sanakstore/vip/raw/main/backup/banner" >/dev/null 2>&1
-    wget -O /etc/pam.d/common-password "https://github.com/sanakstore/vip/raw/main/backup/common-password" >/dev/null 2>&1
-    wget -O /usr/sbin/kuhing "https://github.com/sanakstore/vip/raw/main/backup/kuhing" >/dev/null 2>&1
-    wget -q -O /etc/ipserver "https://github.com/sanakstore/vip/raw/main/backup/ipserver" && bash /etc/ipserver >/dev/null 2>&1
+    wget -q -O /etc/squid/squid.conf "https://github.com/sanakstore/vip/raw/main/backup/squid.conf"
+    wget -q -O /etc/default/dropbear "https://github.com/sanakstore/vip/raw/main/backup/dropbear"
+    wget -q -O /etc/ssh/sshd_config "https://github.com/sanakstore/vip/raw/main/backup/sshd"
+    wget -q -O /etc/sanakstore.txt "https://github.com/sanakstore/vip/raw/main/backup/banner"
+    wget -O /etc/pam.d/common-password "https://github.com/sanakstore/vip/raw/main/backup/common-password"
+    wget -O /usr/sbin/kuhing "https://github.com/sanakstore/vip/raw/main/backup/kuhing"
+    wget -q -O /etc/ipserver "https://github.com/sanakstore/vip/raw/main/backup/ipserver" && bash /etc/ipserver
     chmod +x /usr/sbin/kuhing
     chmod +x /etc/pam.d/common-password
     cat >/lib/systemd/system/haproxy.service <<EOF
@@ -395,9 +395,9 @@ download_config() {
     cd
     rm -rf *
     curl https://raw.githubusercontent.com/xxxserxxx/gotop/master/scripts/download.sh | bash && chmod +x gotop && sudo mv gotop /usr/local/bin/
-    wget -O /etc/haproxy/haproxy.cfg "https://github.com/sanakstore/vip/raw/main/backup/haproxy.cfg" >/dev/null 2>&1
-    wget -O /etc/nginx/conf.d/xray.conf "https://github.com/sanakstore/vip/raw/main/backup/xray" >/dev/null 2>&1
-    wget -O /etc/nginx/nginx.conf "https://github.com/sanakstore/vip/raw/main/backup/nginx.conf" >/dev/null 2>&1
+    wget -O /etc/haproxy/haproxy.cfg "https://github.com/sanakstore/vip/raw/main/backup/haproxy.cfg"
+    wget -O /etc/nginx/conf.d/xray.conf "https://github.com/sanakstore/vip/raw/main/backup/xray"
+    wget -O /etc/nginx/nginx.conf "https://github.com/sanakstore/vip/raw/main/backup/nginx.conf"
     chmod +x *
 
     cat >/root/.profile <<END
