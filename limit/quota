@@ -125,21 +125,22 @@ data=($(cat /etc/xray/config.json | grep '^###' | cut -d ' ' -f 2 | sort | uniq)
 data=($(cat /etc/xray/config.json | grep '^#vmg' | cut -d ' ' -f 2 | sort | uniq))
 for user in ${data[@]}
 do
-   if [ -e /etc/vmess/${user} ]; then
-     cekdulu=$(cat /etc/vmess/${user});
+   if [ -e /etc/vmess/Qouta/${user} ]; then
+     cekdulu=$(cat /etc/vmess/Qouta/${user});
       if [[ ${#cekdulu} -gt 1 ]]; then
-          if [ -e /etc/limit/vmess/${user} ]; then
-             pakai=$(cat /etc/limit/vmess/${user});
+          if [ -e /etc/vmess/qouta${user} ]; then
+             pakai=$(cat /etc/vmess/qouta/${user});
                if [[ ${pakai} -gt ${cekdulu} ]]; then
                   exp=$(grep -w "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
                   sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
                   sed -i "/^#vmg $user $exp/,/^},{/d" /etc/xray/config.json
                   sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
                   systemctl restart xray >> /dev/null 2>&1
-                  bol=$(cat /etc/limit/vmess/${user});
+                  bol=$(cat /etc/vmess/qouta/${user});
                   total=$(con ${bol})
                   send-log
-                  rm -rf /etc/limit/vmess/${user}
+                  rm -rf /etc/vmess/Qouta/${user}
+                  rm -rf /etc/vmess/qouta/${user}
               else
                echo ""
           fi
